@@ -45,3 +45,4 @@ GRID_API_KEY = "RvYcIvmEY3z2e5doEAtg3hFuR5XpS6SL92IW3E9I"
 
 [agent]
 integrations = ["javascript_openai_ai_integrations:2.0.0"]
+expertMode = true
