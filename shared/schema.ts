@@ -12,6 +12,18 @@ export const reports = pgTable("reports", {
 });
 
 // Cache for GRID matches to support historical data and pattern recognition
+export const players = pgTable("players", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  team: text("team").notNull(),
+  role: text("role"),
+  winRate: text("win_rate"),
+  data: jsonb("data"),
+});
+
+export const insertPlayerSchema = createInsertSchema(players).omit({ id: true });
+export type Player = typeof players.$inferSelect;
+
 export const matchHistory = pgTable("match_history", {
   id: serial("id").primaryKey(),
   game: text("game").notNull(),

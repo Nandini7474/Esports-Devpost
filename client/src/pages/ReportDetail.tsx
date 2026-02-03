@@ -5,8 +5,13 @@ import { useRoute, Link } from "wouter";
 import { format } from "date-fns";
 import { 
   ChevronLeft, Loader2, Download, Share2, 
-  Target, Shield, Swords, BrainCircuit, AlertTriangle, FileText
+  Target, Shield, Swords, BrainCircuit, AlertTriangle, FileText,
+  Activity, Database, Zap, TrendingUp, Users
 } from "lucide-react";
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  BarChart, Bar, Legend
+} from 'recharts';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -161,6 +166,59 @@ export default function ReportDetail() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Historical Success Rate & Pattern Graph */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <Card className="bg-white/5 border-white/10 backdrop-blur-sm p-6">
+              <CardTitle className="text-white font-display text-lg mb-4 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-primary" /> Performance Trends
+              </CardTitle>
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={[
+                    { name: 'Match 1', score: 40 },
+                    { name: 'Match 2', score: 30 },
+                    { name: 'Match 3', score: 65 },
+                    { name: 'Match 4', score: 45 },
+                    { name: 'Match 5', score: 80 },
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                    <XAxis dataKey="name" stroke="#888888" fontSize={12} />
+                    <YAxis stroke="#888888" fontSize={12} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#000', border: '1px solid #ffffff20' }}
+                      itemStyle={{ color: '#fff' }}
+                    />
+                    <Line type="monotone" dataKey="score" stroke="#00f2ff" strokeWidth={2} dot={{ fill: '#00f2ff' }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </Card>
+
+            <Card className="bg-white/5 border-white/10 backdrop-blur-sm p-6">
+              <CardTitle className="text-white font-display text-lg mb-4 flex items-center gap-2">
+                <Users className="w-5 h-5 text-secondary" /> Win Probability Analysis
+              </CardTitle>
+              <div className="space-y-4">
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm text-muted-foreground">Predictive Win Rate</span>
+                    <span className="text-xl font-bold text-secondary">72.4%</span>
+                  </div>
+                  <div className="w-full bg-white/10 rounded-full h-2">
+                    <div className="bg-secondary h-2 rounded-full" style={{ width: '72.4%' }}></div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                  <h4 className="text-xs font-mono text-secondary uppercase mb-2">Recommended Next Player</h4>
+                  <div className="flex items-center gap-3">
+                    <Badge variant="outline" className="text-secondary border-secondary/30 uppercase">TENZ (Sub)</Badge>
+                    <span className="text-xs text-muted-foreground">+12% Win Probability increase if swapped</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
           </div>
 
           {/* Grid Layout */}

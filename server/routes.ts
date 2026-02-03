@@ -24,6 +24,39 @@ export async function registerRoutes(
     res.json(report);
   });
 
+  app.get("/api/players", async (req, res) => {
+    const team = req.query.team as string;
+    if (!team) return res.status(400).json({ message: "Team is required" });
+    const teamPlayers = await storage.getPlayers(team);
+    res.json(teamPlayers);
+  });
+
+  app.post("/api/analyze-win-probability", async (req, res) => {
+    const { playerIds, opponent } = req.body;
+    
+    const systemPrompt = `You are a win probability calculator for competitive esports.
+    Analyze the selected players against the opponent and return a probability and reasoning.
+    
+    Output JSON:
+    {
+      "probability": 0.75,
+      "reasoning": "Detailed reasoning based on player synergy and opponent weaknesses.",
+      "recommendedNextPlayer": "PlayerName",
+      "recommendationReason": "Why this player increases win probability."
+    }`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-5.2",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Analyze team [${playerIds.join(", ")}] against ${opponent}` }
+      ],
+      response_format: { type: "json_object" }
+    });
+
+    res.json(JSON.parse(completion.choices[0].message.content || "{}"));
+  });
+
   app.post(api.reports.create.path, async (req, res) => {
     try {
       const { opponent, game } = api.reports.create.input.parse(req.body);

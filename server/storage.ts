@@ -59,6 +59,16 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(matchHistory.createdAt))
       .limit(10);
   }
+
+  // Players
+  async getPlayers(team: string): Promise<Player[]> {
+    return await db.select().from(players).where(eq(players.team, team));
+  }
+
+  async getPlayer(id: number): Promise<Player | undefined> {
+    const [player] = await db.select().from(players).where(eq(players.id, id));
+    return player;
+  }
 }
 
 export const storage = new DatabaseStorage();
