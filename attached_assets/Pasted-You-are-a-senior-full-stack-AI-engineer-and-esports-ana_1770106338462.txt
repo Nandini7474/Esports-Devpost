@@ -1,0 +1,126 @@
+You are a senior full-stack AI engineer and esports analytics architect.
+
+Your task is to build a COMPLETE, END-TO-END, PRODUCTION-READY web application for the following Devpost hackathon problem:
+
+"Category 2 – Automated Scouting Report Generator:
+An application that, given an upcoming opponent, automatically scours GRID data from their recent matches to generate a concise scouting report. The report highlights common strategies, player tendencies, default site setups (for VALORANT), and recently played team compositions (for LoL & VALORANT)."
+
+========================
+CORE REQUIREMENTS
+========================
+
+1. DATA SOURCE
+- Use the GRID API as the primary data source.
+- API Key (assume already valid and authorized):
+  RvYcIvmEY3z2e5doEAtg3hFuR5XpS6SL92IW3E9I
+- Fetch recent matches (last 5–10) for a given opponent.
+- Support:
+  - VALORANT (maps, agents, rounds, site data)
+  - League of Legends (champions, roles, drafts, comps)
+
+2. BACKEND
+- Use Python with FastAPI.
+- Responsibilities:
+  - Fetch data from GRID API
+  - Normalize raw match data into clean analytical schemas
+  - Aggregate statistics (frequencies, tendencies, patterns)
+  - Pass ONLY aggregated stats into the AI layer (no raw spam)
+
+3. ANALYTICS & LOGIC
+Implement logic to detect:
+
+VALORANT:
+- Default site setups (e.g., 3A / 2Mid on defense)
+- Agent usage patterns per map
+- Player tendencies (anchor vs rotator, early util usage)
+- Repeated defensive or attacking behaviors
+
+LEAGUE OF LEGENDS:
+- Recently played team compositions
+- Draft priorities and comfort picks
+- Team style (early game, scaling, front-to-back, pick comp)
+- Lane tendencies and role synergies
+
+4. AI / LLM LAYER
+- Use an LLM ONLY for insight generation and summarization.
+- Input = aggregated stats, NOT raw match data.
+- Output = concise, coach-ready scouting report.
+- Tone:
+  - Tactical
+  - Actionable
+  - Bullet-pointed
+  - No fluff
+
+Example sections:
+- "Key Tendencies"
+- "Common Strategies"
+- "Exploitable Patterns"
+- "Preparation Suggestions"
+
+5. FRONTEND (VERY IMPORTANT)
+- Build a dynamic, player-friendly UI.
+- Use one of:
+  - React (preferred) OR
+  - Streamlit (acceptable for hackathon speed)
+- Features:
+  - Opponent selector
+  - Game selector (VAL / LoL)
+  - Generate Scouting Report button
+  - Clean esports-style layout
+  - Expandable sections
+  - Mobile-responsive
+
+6. OUTPUT
+- Display scouting report in UI
+- Allow export as:
+  - PDF OR
+  - Markdown OR
+  - JSON
+
+7. PROJECT STRUCTURE
+Generate a clean repo structure including:
+- backend/
+- frontend/
+- services/
+- prompts/
+- utils/
+- README.md (VERY IMPORTANT)
+
+The README must include:
+- Problem statement
+- Architecture diagram (ASCII is fine)
+- How to run locally
+- Why this is valuable for coaches and players
+
+========================
+ENGINEERING CONSTRAINTS
+========================
+
+- Write clean, readable, commented code
+- Do NOT hardcode logic into the UI
+- Separate:
+  - Data ingestion
+  - Analytics
+  - AI reasoning
+  - Presentation
+- Make reasonable assumptions if GRID endpoints are abstracted
+- Focus on DEMO-READY stability over scale
+
+========================
+DELIVERABLE
+========================
+
+Generate:
+1. Full backend code
+2. Frontend code
+3. LLM prompt templates
+4. Example scouting report output
+5. README.md
+
+This must be hackathon-ready, demo-ready, and judge-friendly.
+
+Begin by:
+- Designing the architecture
+- Then generating the full codebase
+
+NOTE: Implement the backend first. After that, implement the frontend.
